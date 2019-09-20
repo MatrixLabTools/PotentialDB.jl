@@ -7,6 +7,7 @@ using SHA
 export CASnumber,
        PotentialRegistry,
        addpotential!,
+       defaultregistry,
        loadpotential,
        saveregistry
 
@@ -155,8 +156,9 @@ end
 
 Loads default registry
 """
-defaultregistry() = PotentialRegistry(normpath(joinpath(pathof(PotentialDB), "../src", "data", "Potentials.toml")))
-
+function defaultregistry()
+    PotentialRegistry( normpath(joinpath( @__DIR__, "../data", "Potentials.toml")))
+end
 
 """
 addpotential!(registry::PotentialRegistry, potential::Dict, registryentry::Dict)

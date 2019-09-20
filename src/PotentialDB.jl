@@ -6,7 +6,7 @@ using Reexport
 
 
 export CASnumber, PotentialRegistry,
-       addpotential!, loadpotential, saveregistry
+       addpotential!, defaultregistry, loadpotential, saveregistry
 
 
 
