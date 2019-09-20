@@ -173,17 +173,17 @@ function addpotential!(registry::PotentialRegistry, potential::Dict, registryent
     l = length(registry) + 1
     for x in registryentry["keywords"]
         if haskey(tmpkeys, x)
-            push!(tmpkeys[x], l)
+            push!(tmpkeys[x], "$l")
         else
-            push!(tmpkeys, x=>[l])
+            push!(tmpkeys, x=>["$l"])
         end
     end
     for x in registryentry["CAS"]
         t = CASnumber(x)
         if haskey(tmpcas, t)
-            push!(tmpcas[t], l)
+            push!(tmpcas[t], "$l")
         else
-            push!(tmpcas, t=>[l])
+            push!(tmpcas, t=>["$l"])
         end
     end
     registry.cas = tmpcas
