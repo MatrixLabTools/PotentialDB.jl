@@ -4,7 +4,9 @@ using PotentialDB
 @testset "CASnumber" begin
     a = CASnumber(1,2,3)
     b = CASnumber("3-2-1")
+    c = CASnumber("CAS: 1-2-3")
     @test a != b
+    @test isequal(a,c)
 end
 
 @testset "Registry" begin
@@ -13,8 +15,7 @@ end
     keys(d)
     values(d)
     d[1]
-    file,io = mktemp()
-    close(io)
+    file = tempname()
     r = PotentialRegistry(file)
 
     t = loadpotential(d,1)
@@ -30,7 +31,4 @@ end
 
     @test r.cas == r2.cas
     @test r.keywords == r2.keywords
-
-
-
 end

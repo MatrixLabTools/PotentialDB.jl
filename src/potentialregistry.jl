@@ -27,7 +27,7 @@ struct CASnumber
 end
 
 Base.show(io::IO, c::CASnumber) = print(io, "CAS: ", c.num[1], "-", c.num[2], "-", c.num[3])
-Base.isequal(c1::CASnumber, c2::CASnumber) = all( c1.num .== c2.num )
+Base.isequal(c1::CASnumber, c2::CASnumber) = c1.num == c2.num
 
 """
 requiredkeys()
@@ -71,6 +71,9 @@ mutable struct PotentialRegistry
     cas::Dict
 
     function PotentialRegistry(fname::String)
+        if ! isfile(fname)
+            touch(fname)
+        end
         d = TOML.parsefile(fname)
         for (k,v) in d
             if ! checkformat(v)
@@ -100,10 +103,6 @@ mutable struct PotentialRegistry
         end
         new(fname, d, tmpkeys, cas)
     end
-
-    function PotentialRegistry()
-        new("", Dict(), Dict(), Dict())
-    end
 end
 
 
@@ -113,7 +112,7 @@ Base.values(p::PotentialRegistry) = values(p.data)
 Base.show(io::IO, p::PotentialRegistry) = print(io, "Potential registry $(length(p)) potentials")
 
 Base.getindex(p::PotentialRegistry,i) = p.data[i]
-Base.getindex(p::PotentialRegistry,i::Integer) = p.data["$i"]
+Base.getindex(p::PotentialRegistry,i::Integer) = p["$i"]
 
 
 """
