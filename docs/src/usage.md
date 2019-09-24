@@ -7,7 +7,7 @@ Package has two modes default registry and custom registries.
 Default registry can be loaded with
 
 ```@example 1
-using PackageDB
+using PotentialDB
 d = defaultregistry()
 ```
 
