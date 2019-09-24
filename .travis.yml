@@ -22,9 +22,10 @@ jobs:
       os: linux
       dist: bionic
       script:
-        - julia --color=yes --project=docs/ -e 'using Pkg; Pkg.instantiate();
+        - julia --color=yes --project=docs/ -e 'using Pkg;
                  Pkg.Registry.add(RegistrySpec(url="https://github.com/MatrixLabTools/PackageRegistry"));
                  Pkg.Registry.add(RegistrySpec(url="https://github.com/JuliaRegistries/General"));
+                 Pkg.instantiate();
                  Pkg.add(PackageSpec(path=pwd()));'
         - julia --color=yes --project=docs/ docs/make.jl
       after_success: skip

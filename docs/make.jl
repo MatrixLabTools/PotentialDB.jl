@@ -1,4 +1,5 @@
-using Documenter, PotentialDB
+using Documenter
+using PotentialDB, PotentialCalculation
 
 makedocs(sitename="PotentialDB",
          pages=["Home"=>"index.md",
