@@ -206,7 +206,7 @@ end
 
 
 function listpotentials(r::PotentialRegistry)
-    println("\n[key]  =>  Desrciption\n")
+    println("\n[key]  =>  Description\n")
     for k in keys(r)
         println("[$k]  =>  ", r[k]["description"])
     end
