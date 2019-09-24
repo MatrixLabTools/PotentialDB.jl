@@ -26,6 +26,6 @@ jobs:
                  Pkg.Registry.add(RegistrySpec(url="https://github.com/MatrixLabTools/PackageRegistry"));
                  Pkg.Registry.add(RegistrySpec(url="https://github.com/JuliaRegistries/General"));
                  Pkg.instantiate();
-                 Pkg.add(PackageSpec(path=pwd()));'
+                 Pkg.develop(PackageSpec(path=pwd()));'
         - julia --color=yes --project=docs/ docs/make.jl
       after_success: skip
