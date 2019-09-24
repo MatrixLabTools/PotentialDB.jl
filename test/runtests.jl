@@ -31,4 +31,5 @@ end
 
     @test r.cas == r2.cas
     @test r.keywords == r2.keywords
+    listpotentials(r)
 end

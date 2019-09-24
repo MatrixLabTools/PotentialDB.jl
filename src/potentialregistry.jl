@@ -8,6 +8,7 @@ export CASnumber,
        PotentialRegistry,
        addpotential!,
        defaultregistry,
+       listpotentials,
        loadpotential,
        saveregistry
 
@@ -201,6 +202,14 @@ function addpotential!(registry::PotentialRegistry, potential::Dict, registryent
     saveregistry(registry)
     @info "All done!"
     return registry
+end
+
+
+function listpotentials(r::PotentialRegistry)
+    println("\n[key]  =>  Desrciption\n")
+    for k in keys(r)
+        println("[$k]  =>  ", r[k]["description"])
+    end
 end
 
 end #module
