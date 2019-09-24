@@ -1,6 +1,5 @@
 [deps]
 Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
-PotentialDB = "e899a7e1-cf22-409b-b35c-84b9d10c2c8e"
 
 [compat]
 Documenter = "~0.23"
