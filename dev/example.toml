@@ -1,7 +1,7 @@
 [1]
 CAS = ["64-18-6", "7440-37-1"]
 method = "CCSD(T)-F12/RI"
-hash = "1f64ff73606825ba10a0ee006219a05a9491da0c9f855a4f458278e076cc0b5c"
+hash = "435ce6a2a2bd8fb25a8973709de3421e375e5823772ed9cd74a1b4131083adf9"
 keywords = ["formic acid", "argon"]
 file = "potential-1.jld"
 basis = "cc-pVDZ-F12 cc-pVDZ-F12-CABS cc-pVTZ/C"
