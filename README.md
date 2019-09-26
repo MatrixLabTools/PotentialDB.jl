@@ -8,3 +8,11 @@
 
 
 Long time storage for potentials calculated with [PotentialCalculation](https://github.com/MatrixLabTools/PotentialCalculation.jl)
+
+
+Installation
+
+```julia
+pkg> registry add https://github.com/MatrixLabTools/PackageRegistry
+pkg> add PotentialDB
+```

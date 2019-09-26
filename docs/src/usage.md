@@ -50,14 +50,9 @@ description = "cis-formic acid - argon potential. Max 20000 cm⁻¹"
 ```
 
 Some of keywords are mandatory some are not. There can be as many keywords
-than you want to add. To see which of the keywords are mandatory you can call
-`requiredkeys`-function:
+than you want to add.
 
-```@example 1
-requiredkeys()
-```
-
-### Purpose of mandatory keywords
+### List of mandatory keywords
 
 - authors - Identify persons who made the potential.
 - basis - Basis functions used in calculaton.
