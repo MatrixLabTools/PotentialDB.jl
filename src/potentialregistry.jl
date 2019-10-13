@@ -109,6 +109,7 @@ end
 
 Base.length(p::PotentialRegistry) = length(p.data)
 Base.keys(p::PotentialRegistry) = keys(p.data)
+Base.haskey(p::PotentialRegistry, key) = haskey(p.data, key)
 Base.values(p::PotentialRegistry) = values(p.data)
 Base.show(io::IO, p::PotentialRegistry) = print(io, "Potential registry $(length(p)) potentials")
 
@@ -167,10 +168,18 @@ Add potential to registry. Potential is saved to file in same directory that
 registry file is and given name after default naming scheme.
 """
 function addpotential!(registry::PotentialRegistry, potential::Dict, registryentry::Dict)
-    ! checkformat(registryentry) && error("Registry entry does not have needed information")
+    ! checkformat(registryentry) && error("Registry entry does not have the needed information")
     tmpkeys = deepcopy(registry.keywords)
     tmpcas = deepcopy(registry.cas)
     l = length(registry) + 1
+    #Check that l is not reserved already
+    while true
+        if haskey(registry, "$l")
+            l += 1
+        else
+            break
+        end
+    end
     for x in registryentry["keywords"]
         if haskey(tmpkeys, x)
             push!(tmpkeys[x], "$l")
