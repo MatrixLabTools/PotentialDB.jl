@@ -44,8 +44,9 @@ checkformat(d) -> Bool
 
 Checks if dictionary has information needed to make PotentialRegistry entry.
 """
-function checkformat(d)
+function checkformat(d; checkfile=true)
     for k in requiredkeys()
+        ! checkfile && continue
         if ! haskey(d, k)
             return false
         end
@@ -168,7 +169,8 @@ Add potential to registry. Potential is saved to file in same directory that
 registry file is and given name after default naming scheme.
 """
 function addpotential!(registry::PotentialRegistry, potential::Dict, registryentry::Dict)
-    ! checkformat(registryentry) && error("Registry entry does not have the needed information")
+    entry = deepcopy(registryentry)
+    ! checkformat(entry, checkfile=false) && error("Registry entry does not have the needed information")
     tmpkeys = deepcopy(registry.keywords)
     tmpcas = deepcopy(registry.cas)
     l = length(registry) + 1
@@ -180,14 +182,21 @@ function addpotential!(registry::PotentialRegistry, potential::Dict, registryent
             break
         end
     end
-    for x in registryentry["keywords"]
+    if haskey(entry,"file")
+        pfile = joinpath(splitdir(registry.fname)[1], entry["file"])
+    else
+        pfile = joinpath(splitdir(registry.fname)[1], "potential-$l.jld")
+        entry["file"] = "potential-$l.jld"
+    end
+    isfile(pfile) && error("File $(pfile) already exists")
+    for x in entry["keywords"]
         if haskey(tmpkeys, x)
             push!(tmpkeys[x], "$l")
         else
             push!(tmpkeys, x=>["$l"])
         end
     end
-    for x in registryentry["CAS"]
+    for x in entry["CAS"]
         t = CASnumber(x)
         if haskey(tmpcas, t)
             push!(tmpcas[t], "$l")
@@ -197,14 +206,13 @@ function addpotential!(registry::PotentialRegistry, potential::Dict, registryent
     end
     registry.cas = tmpcas
     registry.keywords = tmpkeys
-    pfile = joinpath(splitdir(registry.fname)[1], "potential-$l.jld")
     save_jld_data(pfile, potential)
     s = open(pfile, "r") do f
        bytes2hex(sha2_256(f))
     end
-    push!(registryentry, "hash"=>s)
-    push!(registryentry, "file"=>"potential-$l.jld")
-    push!(registry.data, "$l"=>registryentry)
+    entry["number of points"] = length(potential["Energy"])
+    push!(entry, "hash"=>s)
+    push!(registry.data, "$l"=>entry)
 
     #TODO Check potential for content
 

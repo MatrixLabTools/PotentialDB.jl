@@ -19,9 +19,14 @@ end
     r = PotentialRegistry(file)
 
     t = loadpotential(d,1)
-    addpotential!(r, t, d[1])
+    tt = deepcopy(d[1])
+    tt["file"] = tempname()
+    addpotential!(r, t, tt)
+
     t = loadpotential(d,2)
-    addpotential!(r, t, d[2])
+    ttt = deepcopy(d[2])
+    ttt["file"] = tempname()
+    addpotential!(r, t, ttt)
 
     t2 = loadpotential(r,2)
 
