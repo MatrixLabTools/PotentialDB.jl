@@ -9,6 +9,11 @@ julia:
 
 dist: bionic
 
+addons:
+  apt:
+    packages:
+      python3-sklearn
+
 matrix:
   allow_failures:
     - julia: nightly
@@ -30,6 +35,10 @@ jobs:
       julia: 1.2
       os: linux
       dist: bionic
+      addons:
+        apt:
+          packages:
+            python3-sklearn
       script:
         - julia --color=yes --project=docs/ -e 'using Pkg;
                  Pkg.Registry.add(RegistrySpec(url="https://github.com/MatrixLabTools/PackageRegistry"));
