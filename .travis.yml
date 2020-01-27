@@ -4,7 +4,7 @@ os:
   - linux
 
 julia:
-  - 1.2
+  - 1
   - nightly
 
 dist: bionic
@@ -14,9 +14,7 @@ addons:
     packages:
       python3-sklearn
 
-matrix:
-  allow_failures:
-    - julia: nightly
+
 
 notifications:
   email: false
@@ -30,9 +28,11 @@ script:
            Pkg.instantiate(); Pkg.build(); Pkg.test(coverage=true)'
 
 jobs:
+  allow_failures:
+    - julia: nightly
   include:
     - stage: "Documentation"
-      julia: 1.2
+      julia: 1
       os: linux
       dist: bionic
       addons:
@@ -43,7 +43,7 @@ jobs:
         - julia --color=yes --project=docs/ -e 'using Pkg;
                  Pkg.Registry.add(RegistrySpec(url="https://github.com/MatrixLabTools/PackageRegistry"));
                  Pkg.Registry.add(RegistrySpec(url="https://github.com/JuliaRegistries/General"));
-                 Pkg.instantiate();
-                 Pkg.develop(PackageSpec(path=pwd()));'
+                 Pkg.develop(PackageSpec(path=pwd()));
+                 Pkg.instantiate();'
         - julia --color=yes --project=docs/ docs/make.jl
       after_success: skip
