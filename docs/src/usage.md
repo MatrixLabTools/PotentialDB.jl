@@ -18,13 +18,13 @@ You can list potentials stored in the default registry with
 listpotentials(d)
 ```
 
-To list more detals of a selected potential you can call it with key
+To list more details of the selected potential, you can call it with its key
 
 ```@example 1
 d["1"]
 ```
 
-To load a wanted potential call with `loadpotential` and key
+To load a wanted potential, call with `loadpotential` and key
 
 ```@example 1
 p=loadpotential(d,"1")
@@ -33,9 +33,9 @@ p=loadpotential(d,"1")
 
 ## Custom registries
 
-Registries are defined by a TOML-file that holds information on where the potential
-file is saved and some details on the potential it self. Example default registry
-has entry:
+Registries are defined by a TOML-file that holds information on where the file
+holding potential energy data is saved and some details on the potential itself.
+Example default registry has entry:
 
 ```
 [1]
@@ -49,8 +49,8 @@ authors = ["Teemu Järvinen"]
 description = "cis-formic acid - argon potential. Max 20000 cm⁻¹"
 ```
 
-Some of keywords are mandatory some are not. There can be as many keywords
-than you want to add.
+Some of keywords are mandatory, some are not. Also there can be as many keywords
+as you want to add.
 
 ### List of mandatory keywords
 
@@ -63,11 +63,11 @@ than you want to add.
 - method - Method used to calculate potential.
 
 Additionally `hash`-keyword is optional. It contains SHA256 sum of potential file
-and if present is used to check integrity of potential upon loading.
+and, if present, is used to check integrity of potential upon loading.
 
-To load custom potential registry use `PotentialRegistry("Registry.toml")`.
-If file `"Registry.toml"`-excists this call loads it and checks, if it has correct
-form, if not it will throw an error. If file does not excist it creates a new registry.
+To load custom potential registry, use `PotentialRegistry("Registry.toml")`.
+If file `"Registry.toml"` exists, this call loads it and checks, if it has correct
+form, if not it will throw an error. If file does not exist, it creates a new registry.
 
 ```@example 2
 using PotentialDB # hide
@@ -75,9 +75,9 @@ r = PotentialRegistry("example.toml")
 ```
 
 You can use `addpotential!`-function to add potentials to this file.
-As and example lets add a potential from default registry.
+As and example, lets add a potential from default registry.
 
-Let first load potential from default registry
+Lets first load potential from default registry
 
 ```@example 2
 d = defaultregistry()
@@ -85,8 +85,9 @@ d = defaultregistry()
 p = loadpotential(d, "2")
 ```
 
-To add potential you must create a `Dict`-that holds mandatory keywords need from
-registry entry. In a case of this example we can load this data from defaultregistry.
+To add potential, you must create a `Dict`-that holds mandatory keywords needed
+for a registry entry. In the case of this example,
+we can load this data from the default registry.
 
 ```@example 2
 k = d["2"]
@@ -98,8 +99,8 @@ We can now add potential to our example registry
 addpotential!(r, p, k)
 ```
 
-New potential is added and registry file is saved. To confirm we added new potential
-correctly we can do:
+New potential was added and registry file was saved. To confirm, that we added a
+new potential correctly, we can do:
 
 ```@repl 2
 rc = PotentialRegistry("example.toml")
@@ -111,6 +112,7 @@ loadpotential(rc, "1")
 ## Add potentials to default registry
 
 Default registry is just standard registy file located in data-directory of the
-package. While you can add entries there by had it is recommended to use
-`addpotential!`-function. You can then submit a pull request to [PotentialDB.jl](https://github.com/MatrixLabTools/PotentialDB.jl)
-to have your potential to added for everyones use.
+package. While you can add entries there by had, it is recommended to use
+`addpotential!`-function. You can then submit a pull request to
+[PotentialDB.jl](https://github.com/MatrixLabTools/PotentialDB.jl),
+to have your potential to added for everyone's use.
