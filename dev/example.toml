@@ -2,7 +2,7 @@
 CAS = ["64-18-6", "7440-37-1"]
 method = "CCSD(T)-F12/RI"
 "number of points" = 640
-hash = "e7868c53c782001b92b5c546475b6935f61da993f68782c4d9187f27e112008d"
+hash = "7569320c285686ffee7249ee31aa56bc63002b6f576aa9bc04c0d7637efddea0"
 keywords = ["formic acid", "argon"]
 file = "potential-2.jld"
 basis = "cc-pVDZ-F12 cc-pVDZ-F12-CABS cc-pVTZ/C"
