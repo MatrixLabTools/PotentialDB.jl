@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Usage · PotentialDB</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../assets/documenter.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link href="../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>PotentialDB</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" id="search-form" action="../search/"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../">Home</a></li><li class="current"><a class="toctext" href>Usage</a><ul class="internal"><li><a class="toctext" href="#Using-default-registry-1">Using default registry</a></li><li><a class="toctext" href="#Custom-registries-1">Custom registries</a></li><li><a class="toctext" href="#Add-potentials-to-default-registry-1">Add potentials to default registry</a></li></ul></li></ul></nav><article id="docs"><header><nav><ul><li><a href>Usage</a></li></ul><a class="edit-page" href="https://github.com/MatrixLabTools/PotentialDB.jl/blob/master/docs/src/usage.md"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>Usage</span><a class="fa fa-bars" href="#"></a></div></header><h1><a class="nav-anchor" id="Usage-1" href="#Usage-1">Usage</a></h1><p>Package has two modes default registry and custom registries.</p><h2><a class="nav-anchor" id="Using-default-registry-1" href="#Using-default-registry-1">Using default registry</a></h2><p>Default registry can be loaded with</p><pre><code class="language-julia">using PotentialDB
-d = defaultregistry()</code></pre><pre><code class="language-none">Potential registry 6 potentials</code></pre><p>You can list potentials stored in the default registry with <code>listpotentials</code>-command</p><pre><code class="language-julia">listpotentials(d)</code></pre><pre><code class="language-none">
+d = defaultregistry()</code></pre><pre><code class="language-none">Potential registry 7 potentials</code></pre><p>You can list potentials stored in the default registry with <code>listpotentials</code>-command</p><pre><code class="language-julia">listpotentials(d)</code></pre><pre><code class="language-none">
 [key]  =&gt;  Description
 
 [4]  =&gt;  trans-formic acid - argon potential. Max 5000 cm⁻¹
@@ -8,6 +8,7 @@ d = defaultregistry()</code></pre><pre><code class="language-none">Potential reg
 [5]  =&gt;  benzene - argon potential. Max 5000 cm⁻¹
 [2]  =&gt;  trans-formic acid - argon potential. Max 20000 cm⁻¹
 [6]  =&gt;  benzene - neon potential. Max 5000 cm⁻¹
+[7]  =&gt;  glycolic acid - argon potential. Max 20000 cm⁻¹
 [3]  =&gt;  cis-formic acid - argon potential. Max 5000 cm⁻¹</code></pre><p>To list more details of the selected potential, you can call it with its key</p><pre><code class="language-julia">d[&quot;1&quot;]</code></pre><pre><code class="language-none">Dict{String,Any} with 8 entries:
   &quot;CAS&quot;         =&gt; [&quot;64-18-6&quot;, &quot;7440-37-1&quot;]
   &quot;method&quot;      =&gt; &quot;CCSD(T)-F12/RI&quot;
@@ -60,7 +61,7 @@ Dict{String,Any} with 9 entries:
   &quot;CAS&quot;              =&gt; [&quot;64-18-6&quot;, &quot;7440-37-1&quot;]
   &quot;method&quot;           =&gt; &quot;CCSD(T)-F12/RI&quot;
   &quot;number of points&quot; =&gt; 640
-  &quot;hash&quot;             =&gt; &quot;7569320c285686ffee7249ee31aa56bc63002b6f576aa9bc04c0d7…
+  &quot;hash&quot;             =&gt; &quot;2cb02f3d16f8c31e6ac1242cc01e71da90838864be09346217c6dd…
   &quot;keywords&quot;         =&gt; [&quot;formic acid&quot;, &quot;argon&quot;]
   &quot;file&quot;             =&gt; &quot;potential-2.jld&quot;
   &quot;basis&quot;            =&gt; &quot;cc-pVDZ-F12 cc-pVDZ-F12-CABS cc-pVTZ/C&quot;
