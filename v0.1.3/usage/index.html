@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Usage · PotentialDB</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../assets/documenter.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link href="../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>PotentialDB</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" id="search-form" action="../search/"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../">Home</a></li><li class="current"><a class="toctext" href>Usage</a><ul class="internal"><li><a class="toctext" href="#Using-default-registry-1">Using default registry</a></li><li><a class="toctext" href="#Custom-registries-1">Custom registries</a></li><li><a class="toctext" href="#Add-potentials-to-default-registry-1">Add potentials to default registry</a></li></ul></li></ul></nav><article id="docs"><header><nav><ul><li><a href>Usage</a></li></ul><a class="edit-page" href="https://github.com/MatrixLabTools/PotentialDB.jl/blob/master/docs/src/usage.md"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>Usage</span><a class="fa fa-bars" href="#"></a></div></header><h1><a class="nav-anchor" id="Usage-1" href="#Usage-1">Usage</a></h1><p>Package has two modes default registry and custom registries.</p><h2><a class="nav-anchor" id="Using-default-registry-1" href="#Using-default-registry-1">Using default registry</a></h2><p>Default registry can be loaded with</p><pre><code class="language-julia">using PotentialDB
+d = defaultregistry()</code></pre><pre><code class="language-none">Potential registry 7 potentials</code></pre><p>You can list potentials stored in the default registry with <code>listpotentials</code>-command</p><pre><code class="language-julia">listpotentials(d)</code></pre><pre><code class="language-none">
+[key]  =&gt;  Description
+
+[4]  =&gt;  trans-formic acid - argon potential. Max 5000 cm⁻¹
+[1]  =&gt;  cis-formic acid - argon potential. Max 20000 cm⁻¹
+[5]  =&gt;  benzene - argon potential. Max 5000 cm⁻¹
+[2]  =&gt;  trans-formic acid - argon potential. Max 20000 cm⁻¹
+[6]  =&gt;  benzene - neon potential. Max 5000 cm⁻¹
+[7]  =&gt;  glycolic acid - argon potential. Max 20000 cm⁻¹
+[3]  =&gt;  cis-formic acid - argon potential. Max 5000 cm⁻¹</code></pre><p>To list more details of the selected potential, you can call it with its key</p><pre><code class="language-julia">d[&quot;1&quot;]</code></pre><pre><code class="language-none">Dict{String,Any} with 8 entries:
+  &quot;CAS&quot;         =&gt; [&quot;64-18-6&quot;, &quot;7440-37-1&quot;]
+  &quot;method&quot;      =&gt; &quot;CCSD(T)-F12/RI&quot;
+  &quot;hash&quot;        =&gt; &quot;23284650a0739cbda33e82f4f16ca962e833fa6c320c492525033e492d1…
+  &quot;keywords&quot;    =&gt; [&quot;formic acid&quot;, &quot;argon&quot;]
+  &quot;file&quot;        =&gt; &quot;potential-1.jld&quot;
+  &quot;basis&quot;       =&gt; &quot;cc-pVDZ-F12 cc-pVDZ-F12-CABS cc-pVTZ/C&quot;
+  &quot;authors&quot;     =&gt; [&quot;Teemu Järvinen&quot;]
+  &quot;description&quot; =&gt; &quot;cis-formic acid - argon potential. Max 20000 cm⁻¹&quot;</code></pre><p>To load a wanted potential, call with <code>loadpotential</code> and key</p><pre><code class="language-julia">p=loadpotential(d,&quot;1&quot;)</code></pre><pre><code class="language-none">Dict{String,Any} with 6 entries:
+  &quot;Method&quot;   =&gt; &quot;CCSD(T)-F12/RI&quot;
+  &quot;cluster2&quot; =&gt; Cluster{AtomOnlySymbol} of 1 atoms
+  &quot;Energy&quot;   =&gt; [0.0699679 0.0829061 … 0.0811201 0.0828071; 0.0221226 0.0240231…
+  &quot;Points&quot;   =&gt; Cluster{AtomOnlySymbol}[Cluster{AtomOnlySymbol} of 6 atoms Clus…
+  &quot;cluster1&quot; =&gt; Cluster{AtomOnlySymbol} of 5 atoms
+  &quot;Basis&quot;    =&gt; &quot;cc-pVDZ-F12 cc-pVDZ-F12-CABS cc-pVTZ/C TIGHTSCF&quot;</code></pre><h2><a class="nav-anchor" id="Custom-registries-1" href="#Custom-registries-1">Custom registries</a></h2><p>Registries are defined by a TOML-file that holds information on where the file holding potential energy data is saved and some details on the potential itself. Example default registry has entry:</p><pre><code class="language-none">[1]
+CAS = [&quot;64-18-6&quot;, &quot;7440-37-1&quot;]
+method = &quot;CCSD(T)-F12/RI&quot;
+hash = &quot;23284650a0739cbda33e82f4f16ca962e833fa6c320c492525033e492d1e2b87&quot;
+keywords = [&quot;formic acid&quot;, &quot;argon&quot;]
+file = &quot;potential-1.jld&quot;
+basis = &quot;cc-pVDZ-F12 cc-pVDZ-F12-CABS cc-pVTZ/C&quot;
+authors = [&quot;Teemu Järvinen&quot;]
+description = &quot;cis-formic acid - argon potential. Max 20000 cm⁻¹&quot;</code></pre><p>Some of keywords are mandatory, some are not. Also there can be as many keywords as you want to add.</p><h3><a class="nav-anchor" id="List-of-mandatory-keywords-1" href="#List-of-mandatory-keywords-1">List of mandatory keywords</a></h3><ul><li>authors - Identify persons who made the potential.</li><li>basis - Basis functions used in calculaton.</li><li>CAS  - CAS numbers of molecules in the potential. Needed for identification.</li><li>description - Short desciption of potential.</li><li>file - location of potentialfile relative to location registry file.</li><li>keywords - Used to do search on potentials.</li><li>method - Method used to calculate potential.</li></ul><p>Additionally <code>hash</code>-keyword is optional. It contains SHA256 sum of potential file and, if present, is used to check integrity of potential upon loading.</p><p>To load custom potential registry, use <code>PotentialRegistry(&quot;Registry.toml&quot;)</code>. If file <code>&quot;Registry.toml&quot;</code> exists, this call loads it and checks, if it has correct form, if not it will throw an error. If file does not exist, it creates a new registry.</p><pre><code class="language-julia">r = PotentialRegistry(&quot;example.toml&quot;)</code></pre><pre><code class="language-none">Potential registry 0 potentials</code></pre><p>You can use <code>addpotential!</code>-function to add potentials to this file. As and example, lets add a potential from default registry.</p><p>Lets first load potential from default registry</p><pre><code class="language-julia">d = defaultregistry()
+
+p = loadpotential(d, &quot;2&quot;)</code></pre><pre><code class="language-none">Dict{String,Any} with 6 entries:
+  &quot;Method&quot;   =&gt; &quot;CCSD(T)-F12/RI&quot;
+  &quot;cluster2&quot; =&gt; Cluster{AtomOnlySymbol} of 1 atoms
+  &quot;Energy&quot;   =&gt; [0.0828836 0.0901049 … 0.0792415 0.0679845; 0.0260046 0.0263087…
+  &quot;Points&quot;   =&gt; Cluster{AtomOnlySymbol}[Cluster{AtomOnlySymbol} of 6 atoms Clus…
+  &quot;cluster1&quot; =&gt; Cluster{AtomOnlySymbol} of 5 atoms
+  &quot;Basis&quot;    =&gt; &quot;cc-pVDZ-F12 cc-pVDZ-F12-CABS cc-pVTZ/C TIGHTSCF&quot;</code></pre><p>To add potential, you must create a <code>Dict</code>-that holds mandatory keywords needed for a registry entry. In the case of this example, we can load this data from the default registry.</p><pre><code class="language-julia">k = d[&quot;2&quot;]</code></pre><pre><code class="language-none">Dict{String,Any} with 8 entries:
+  &quot;CAS&quot;         =&gt; [&quot;64-18-6&quot;, &quot;7440-37-1&quot;]
+  &quot;method&quot;      =&gt; &quot;CCSD(T)-F12/RI&quot;
+  &quot;hash&quot;        =&gt; &quot;9f32773cec10be93e5bd53eb437eec229e8641959ed4fa2350f001b60f3…
+  &quot;keywords&quot;    =&gt; [&quot;formic acid&quot;, &quot;argon&quot;]
+  &quot;file&quot;        =&gt; &quot;potential-2.jld&quot;
+  &quot;basis&quot;       =&gt; &quot;cc-pVDZ-F12 cc-pVDZ-F12-CABS cc-pVTZ/C&quot;
+  &quot;authors&quot;     =&gt; [&quot;Teemu Järvinen&quot;]
+  &quot;description&quot; =&gt; &quot;trans-formic acid - argon potential. Max 20000 cm⁻¹&quot;</code></pre><p>We can now add potential to our example registry</p><pre><code class="language-julia">addpotential!(r, p, k)</code></pre><pre><code class="language-none">Potential registry 1 potentials</code></pre><p>New potential was added and registry file was saved. To confirm, that we added a new potential correctly, we can do:</p><pre><code class="language-julia-repl">julia&gt; rc = PotentialRegistry(&quot;example.toml&quot;)
+Potential registry 1 potentials
+
+julia&gt; listpotentials(rc)
+
+[key]  =&gt;  Description
+
+[1]  =&gt;  trans-formic acid - argon potential. Max 20000 cm⁻¹
+
+julia&gt; rc[&quot;1&quot;]
+Dict{String,Any} with 9 entries:
+  &quot;CAS&quot;              =&gt; [&quot;64-18-6&quot;, &quot;7440-37-1&quot;]
+  &quot;method&quot;           =&gt; &quot;CCSD(T)-F12/RI&quot;
+  &quot;number of points&quot; =&gt; 640
+  &quot;hash&quot;             =&gt; &quot;01cec65aef37b495eae3639bfc5ab738c30a1ccfe06d0a9603e920…
+  &quot;keywords&quot;         =&gt; [&quot;formic acid&quot;, &quot;argon&quot;]
+  &quot;file&quot;             =&gt; &quot;potential-2.jld&quot;
+  &quot;basis&quot;            =&gt; &quot;cc-pVDZ-F12 cc-pVDZ-F12-CABS cc-pVTZ/C&quot;
+  &quot;authors&quot;          =&gt; [&quot;Teemu Järvinen&quot;]
+  &quot;description&quot;      =&gt; &quot;trans-formic acid - argon potential. Max 20000 cm⁻¹&quot;
+
+julia&gt; loadpotential(rc, &quot;1&quot;)
+Dict{String,Any} with 6 entries:
+  &quot;Method&quot;   =&gt; &quot;CCSD(T)-F12/RI&quot;
+  &quot;cluster2&quot; =&gt; Cluster{AtomOnlySymbol} of 1 atoms
+  &quot;Energy&quot;   =&gt; [0.0828836 0.0901049 … 0.0792415 0.0679845; 0.0260046 0.0263087…
+  &quot;Points&quot;   =&gt; Cluster{AtomOnlySymbol}[Cluster{AtomOnlySymbol} of 6 atoms Clus…
+  &quot;cluster1&quot; =&gt; Cluster{AtomOnlySymbol} of 5 atoms
+  &quot;Basis&quot;    =&gt; &quot;cc-pVDZ-F12 cc-pVDZ-F12-CABS cc-pVTZ/C TIGHTSCF&quot;</code></pre><h2><a class="nav-anchor" id="Add-potentials-to-default-registry-1" href="#Add-potentials-to-default-registry-1">Add potentials to default registry</a></h2><p>Default registry is just standard registy file located in data-directory of the package. While you can add entries there by had, it is recommended to use <code>addpotential!</code>-function. You can then submit a pull request to <a href="https://github.com/MatrixLabTools/PotentialDB.jl">PotentialDB.jl</a>, to have your potential to added for everyone&#39;s use.</p><footer><hr/><a class="previous" href="../"><span class="direction">Previous</span><span class="title">Home</span></a></footer></article></body></html>
