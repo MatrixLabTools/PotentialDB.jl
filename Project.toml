@@ -8,6 +8,7 @@ Pkg = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
 PotentialCalculation = "76415700-ec45-11e8-0f65-f1df3c899b21"
 Reexport = "189a3867-3050-52da-a836-e630ba90ab69"
 SHA = "ea8e919c-243c-51af-8825-aaa63cd721ce"
+TOML = "fa267f1f-6049-4f14-aa54-33bafae1ed76"
 
 [compat]
 PotentialCalculation = "0.3"

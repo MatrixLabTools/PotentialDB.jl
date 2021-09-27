@@ -1,7 +1,7 @@
 module potentialregistry
 
 using PotentialCalculation
-using Pkg.TOML
+using TOML
 using SHA
 
 export CASnumber,
