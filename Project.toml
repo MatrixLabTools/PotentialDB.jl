@@ -13,4 +13,4 @@ TOML = "fa267f1f-6049-4f14-aa54-33bafae1ed76"
 [compat]
 PotentialCalculation = "0.3, 0.4"
 Reexport = "0.2, 1.0"
-Julia = "1.6"
+julia = "1.6"
