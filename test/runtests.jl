@@ -20,12 +20,12 @@ end
 
     t = loadpotential(d,1)
     tt = deepcopy(d[1])
-    tt["file"] = tempname()
+    tt["file"] = tempname() * ".jld2"
     addpotential!(r, t, tt)
 
     t = loadpotential(d,2)
     ttt = deepcopy(d[2])
-    ttt["file"] = tempname()
+    ttt["file"] = tempname() * ".jld2"
     addpotential!(r, t, ttt)
 
     t2 = loadpotential(r,2)
