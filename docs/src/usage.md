@@ -30,14 +30,13 @@ To load a wanted potential, call with `loadpotential` and key
 p=loadpotential(d,"1")
 ```
 
-
 ## Custom registries
 
 Registries are defined by a TOML-file that holds information on where the file
 holding potential energy data is saved and some details on the potential itself.
 Example default registry has entry:
 
-```
+```toml
 [1]
 CAS = ["64-18-6", "7440-37-1"]
 method = "CCSD(T)-F12/RI"
