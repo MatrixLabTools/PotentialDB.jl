@@ -1,16 +1,3 @@
-module potentialregistry
-
-using PotentialCalculation
-using TOML
-using SHA
-
-export CASnumber,
-       PotentialRegistry,
-       addpotential!,
-       defaultregistry,
-       listpotentials,
-       loadpotential,
-       saveregistry
 
 
 struct CASnumber
@@ -229,4 +216,3 @@ function listpotentials(r::PotentialRegistry)
     end
 end
 
-end #module

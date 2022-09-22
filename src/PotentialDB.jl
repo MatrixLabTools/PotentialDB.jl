@@ -3,17 +3,20 @@ module PotentialDB
 using Reexport
 
 @reexport using PotentialCalculation
+using TOML
+using SHA
 
-
-export CASnumber, PotentialRegistry,
-       addpotential!, defaultregistry, listpotentials, loadpotential, saveregistry
+export CASnumber
+export PotentialRegistry
+export addpotential!
+export defaultregistry
+export listpotentials
+export loadpotential
+export saveregistry
 
 
 
 include("potentialregistry.jl")
-
-
-using .potentialregistry
 
 
 
