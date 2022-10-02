@@ -25,8 +25,6 @@ jobs:
         arch:
           - x64
     steps:
-      - name: scikit-learn install
-        run: sudo apt-get install python3-sklearn
       - uses: actions/checkout@v2
       - uses: julia-actions/setup-julia@v1
         with:
