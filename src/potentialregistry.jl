@@ -172,8 +172,8 @@ function addpotential!(registry::PotentialRegistry, potential::Dict, registryent
     if haskey(entry,"file")
         pfile = joinpath(splitdir(registry.fname)[1], entry["file"])
     else
-        pfile = joinpath(splitdir(registry.fname)[1], "potential-$l.jld")
-        entry["file"] = "potential-$l.jld"
+        pfile = joinpath(splitdir(registry.fname)[1], "potential-$l.jld2")
+        entry["file"] = "potential-$l.jld2"
     end
     isfile(pfile) && error("File $(pfile) already exists")
     for x in entry["keywords"]
