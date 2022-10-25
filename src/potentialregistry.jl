@@ -35,6 +35,7 @@ function checkformat(d; checkfile=true)
     for k in requiredkeys()
         ! checkfile && continue
         if ! haskey(d, k)
+            @error "Missing key $k"
             return false
         end
     end
@@ -169,13 +170,20 @@ function addpotential!(registry::PotentialRegistry, potential::Dict, registryent
             break
         end
     end
+
+    if ! checkformat(registryentry)
+        error("Registry entry is not valid")
+    end
+
     if haskey(entry,"file")
         pfile = joinpath(splitdir(registry.fname)[1], entry["file"])
     else
-        pfile = joinpath(splitdir(registry.fname)[1], "potential-$l.jld")
-        entry["file"] = "potential-$l.jld"
+        pfile = joinpath(splitdir(registry.fname)[1], "potential-$l.jld2")
+        entry["file"] = "potential-$l.jld2"
     end
+
     isfile(pfile) && error("File $(pfile) already exists")
+
     for x in entry["keywords"]
         if haskey(tmpkeys, x)
             push!(tmpkeys[x], "$l")
@@ -183,6 +191,7 @@ function addpotential!(registry::PotentialRegistry, potential::Dict, registryent
             push!(tmpkeys, x=>["$l"])
         end
     end
+
     for x in entry["CAS"]
         t = CASnumber(x)
         if haskey(tmpcas, t)
@@ -191,12 +200,15 @@ function addpotential!(registry::PotentialRegistry, potential::Dict, registryent
             push!(tmpcas, t=>["$l"])
         end
     end
+
     registry.cas = tmpcas
     registry.keywords = tmpkeys
     save_jld_data(pfile, potential)
+
     s = open(pfile, "r") do f
        bytes2hex(sha2_256(f))
     end
+    
     entry["number of points"] = length(potential["Energy"])
     push!(entry, "hash"=>s)
     push!(registry.data, "$l"=>entry)

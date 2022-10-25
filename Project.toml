@@ -4,6 +4,7 @@ authors = ["Teemu Järvinen <teemu.j.jarvinen@student.jyu.fi>"]
 version = "0.2.1-DEV"
 
 [deps]
+JLD2 = "033835bb-8acc-5ee8-8aae-3f567f8a3819"
 Pkg = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
 PotentialCalculation = "76415700-ec45-11e8-0f65-f1df3c899b21"
 Reexport = "189a3867-3050-52da-a836-e630ba90ab69"

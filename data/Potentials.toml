@@ -1,3 +1,14 @@
+[8]
+CAS = ["7727-37-9", "7440-37-1"]
+method = "CCSD(T)-F12/RI TIGHTSCF"
+"number of points" = 2400
+hash = "cc60537fa7a5534378bf82f7bdf913f576dae130a27afd170246d95e16b19c92"
+keywords = ["nitrogen", "argon"]
+file = "potential-8.jld2"
+authors = ["Teemu Järvinen"]
+basis = "cc-pVDZ-F12 cc-pVDZ-F12-CABS cc-pVTZ/C"
+description = "trans-formic acid - argon potential. Max 5000 cm⁻¹"
+
 [4]
 CAS = ["64-18-6", "7440-37-1"]
 note = "This potential has low maximum energy and thus is only suitable for spectrum calculation and site determination. You can add potential with higher energy maximum to make this suitable for excitation calculations."
