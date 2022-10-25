@@ -2,7 +2,7 @@ module PotentialDB
 
 using Reexport
 
-using JDL2
+using JLD2
 @reexport using PotentialCalculation
 using TOML
 using SHA
