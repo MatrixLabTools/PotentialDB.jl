@@ -30,6 +30,14 @@ To load a wanted potential, call with `loadpotential` and key
 p=loadpotential(d,"1")
 ```
 
+### AtomsBase output
+
+To load data in [AtomsBase]() format use
+
+```@example 1
+data = load_data(d, "1")
+```
+
 ## Custom registries
 
 Registries are defined by a TOML-file that holds information on where the file
