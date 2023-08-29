@@ -2,6 +2,7 @@ module PotentialDB
 
 using Reexport
 
+using AtomsBase
 using JLD2
 @reexport using PotentialCalculation
 using TOML
@@ -14,6 +15,7 @@ export addpotential!
 export defaultregistry
 export listpotentials
 export loadpotential
+export load_data
 export saveregistry
 
 

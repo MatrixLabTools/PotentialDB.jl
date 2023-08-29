@@ -228,3 +228,37 @@ function listpotentials(r::PotentialRegistry)
     end
 end
 
+
+"""
+    load_data(reg, i; kwargs...)
+
+Load data from registry as AtomsBase FlexibleSystem.
+
+# kwargs
+
+- `energy_unit=u"hartree"`  : energy unit for output
+- `strip_unit=false`        ; whether or not strip energy unit or not
+"""
+function load_data(reg, i; energy_unit=u"hartree", strip_unit=false)
+    tmp = loadpotential(reg, i)
+    points = map(  zip( tmp["Points"], tmp["Energy"] )  ) do (xyz, e)
+        tmp_e = e *u"hartree"
+        e_out = strip_unit ? ustrip(energy_unit, tmp_e) : uconvert(energy_unit, tmp_e)
+        FlexibleSystem(xyz; energy = e_out )
+    end
+    lc1 = length(tmp["cluster1"])
+    lc2 = length(tmp["cluster2"])
+    r1 = 1:lc1
+    r2 = (1:lc2) .+ lc1
+    cluster1 = map( tmp["Points"] ) do xyz
+        tmp_e = 0.0 *u"hartree"
+        e_out = strip_unit ? ustrip(energy_unit, tmp_e) : uconvert(energy_unit, tmp_e)
+        FlexibleSystem(xyz(r1); energy = e_out )
+    end
+    cluster2 = map( tmp["Points"] ) do xyz
+        tmp_e = 0.0 *u"hartree"
+        e_out = strip_unit ? ustrip(energy_unit, tmp_e) : uconvert(energy_unit, tmp_e)
+        FlexibleSystem(xyz(r2); energy = e_out )
+    end
+    return Dict("Points" => points, "cluster1" => cluster1, "cluster2"=>cluster2)
+end

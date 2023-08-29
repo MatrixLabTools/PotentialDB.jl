@@ -1,9 +1,10 @@
 name = "PotentialDB"
 uuid = "e899a7e1-cf22-409b-b35c-84b9d10c2c8e"
-authors = ["Teemu Järvinen <teemu.j.jarvinen@student.jyu.fi>"]
-version = "0.2.3"
+authors = ["Teemu Järvinen"]
+version = "0.2.4-DEV"
 
 [deps]
+AtomsBase = "a963bdd2-2df7-4f54-a1ee-49d51e6be12a"
 JLD2 = "033835bb-8acc-5ee8-8aae-3f567f8a3819"
 Pkg = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
 PotentialCalculation = "76415700-ec45-11e8-0f65-f1df3c899b21"
@@ -12,7 +13,8 @@ SHA = "ea8e919c-243c-51af-8825-aaa63cd721ce"
 TOML = "fa267f1f-6049-4f14-aa54-33bafae1ed76"
 
 [compat]
+AtomsBase = "0.3"
 JLD2 = "0.4"
-PotentialCalculation = "0.4.2, 0.5, 0.6"
+PotentialCalculation = "0.6"
 Reexport = "0.2, 1.0"
 julia = "1.6"

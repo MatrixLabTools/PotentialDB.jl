@@ -38,3 +38,17 @@ end
     @test r.keywords == r2.keywords
     listpotentials(r)
 end
+
+
+@testset "AtomsBase" begin
+    reg = defaultregistry()
+    data_hartree = load_data(reg, 1)
+    data_ev = load_data(reg, 1; energy_unit=u"eV")
+    data_strip = load_data(reg, 1; strip_unit=true)
+    c_data = loadpotential(reg, 1)
+
+    @test data_hartree["Points"][1][:energy] |> unit == u"hartree"
+    @test data_hartree["Points"][1][:energy] ≈ data_ev["Points"][1][:energy]
+    @test data_hartree["Points"][1][:energy] |> ustrip ≈ data_strip["Points"][1][:energy]
+    @test c_data["Energy"][1] == data_strip["Points"][1][:energy]
+end
