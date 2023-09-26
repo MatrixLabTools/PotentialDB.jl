@@ -248,7 +248,7 @@ function load_data(
 )
     r_move = ones(1) * ( something(box_size, 0u"Å") / 2 )
     box = begin
-        b = ustrip(u"Å", box_size)
+        b = ustrip(u"Å", something(box_size, Inf ))
         box = [[b, 0.0, 0.0], [0.0, b, 0.0], [0.0, 0.0, b]]u"Å"
     end
     tmp = loadpotential(reg, i)
