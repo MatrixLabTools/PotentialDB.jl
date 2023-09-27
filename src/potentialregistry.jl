@@ -239,12 +239,36 @@ Load data from registry as AtomsBase FlexibleSystem.
 - `energy_unit=u"hartree"`  : energy unit for output
 - `strip_unit=false`        ; whether or not strip energy unit or not
 """
-function load_data(reg, i; energy_unit=u"hartree", strip_unit=false)
+function load_data(
+    reg,
+    i;
+    energy_unit=u"hartree", 
+    strip_unit=false,
+    box_size=nothing
+)
+    r_move = ones(1) * ( something(box_size, 0u"Å") / 2 )
+    box = begin
+        b = ustrip(u"Å", something(box_size, Inf ))
+        box = [[b, 0.0, 0.0], [0.0, b, 0.0], [0.0, 0.0, b]]u"Å"
+    end
     tmp = loadpotential(reg, i)
     points = map(  zip( tmp["Points"], tmp["Energy"] )  ) do (xyz, e)
+        point = deepcopy(xyz)
+        move!(point, r_move)
         tmp_e = e *u"hartree"
         e_out = strip_unit ? ustrip(energy_unit, tmp_e) : uconvert(energy_unit, tmp_e)
-        FlexibleSystem(xyz; energy = e_out )
+        ttmp = FlexibleSystem(point; energy = e_out )
+        if isnothing(box_size)
+            out = ttmp
+        else
+            out = FlexibleSystem(
+                collect(ttmp),
+                box,
+                [Periodic(),Periodic(),Periodic()];
+                energy=e_out, 
+            )
+        end
+        out
     end
     lc1 = length(tmp["cluster1"])
     lc2 = length(tmp["cluster2"])
@@ -253,12 +277,34 @@ function load_data(reg, i; energy_unit=u"hartree", strip_unit=false)
     cluster1 = map( tmp["Points"] ) do xyz
         tmp_e = 0.0 *u"hartree"
         e_out = strip_unit ? ustrip(energy_unit, tmp_e) : uconvert(energy_unit, tmp_e)
-        FlexibleSystem(xyz(r1); energy = e_out )
+        ttmp = FlexibleSystem(xyz(r1); energy = e_out )
+        if isnothing(box_size)
+            out = ttmp
+        else
+            out = FlexibleSystem(
+                collect(ttmp),
+                box,
+                [Periodic(),Periodic(),Periodic()];
+                energy=e_out, 
+            )
+        end
+        out
     end
     cluster2 = map( tmp["Points"] ) do xyz
         tmp_e = 0.0 *u"hartree"
         e_out = strip_unit ? ustrip(energy_unit, tmp_e) : uconvert(energy_unit, tmp_e)
-        FlexibleSystem(xyz(r2); energy = e_out )
+        ttmp = FlexibleSystem(xyz(r2); energy = e_out )
+        if isnothing(box_size)
+            out = ttmp
+        else
+            out = FlexibleSystem(
+                collect(ttmp),
+                box,
+                [Periodic(),Periodic(),Periodic()];
+                energy=e_out, 
+            )
+        end
+        out
     end
     return Dict("Points" => points, "cluster1" => cluster1, "cluster2"=>cluster2)
 end
