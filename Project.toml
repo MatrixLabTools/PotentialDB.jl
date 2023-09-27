@@ -1,7 +1,7 @@
 name = "PotentialDB"
 uuid = "e899a7e1-cf22-409b-b35c-84b9d10c2c8e"
 authors = ["Teemu Järvinen"]
-version = "0.2.5-DEV"
+version = "0.2.5"
 
 [deps]
 AtomsBase = "a963bdd2-2df7-4f54-a1ee-49d51e6be12a"
