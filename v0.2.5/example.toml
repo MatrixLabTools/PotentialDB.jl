@@ -1,0 +1,10 @@
+[1]
+CAS = ["64-18-6", "7440-37-1"]
+method = "CCSD(T)-F12/RI"
+"number of points" = 640
+hash = "2237efbf038102f5698acbc8c7bff33d5b1cb9f2800f2dfb9e7c7bc4f2bace85"
+keywords = ["formic acid", "argon"]
+file = "potential-2.jld2"
+basis = "cc-pVDZ-F12 cc-pVDZ-F12-CABS cc-pVTZ/C"
+authors = ["Teemu Järvinen"]
+description = "trans-formic acid - argon potential. Max 20000 cm⁻¹"
